@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/Debug/2k4r46d1/obj/x86_64

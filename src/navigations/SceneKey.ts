@@ -1,0 +1,15 @@
+export const ONBOARDING_SCENE = 'onboardingScene';
+export const HOME_SCENE = 'homeScene';
+export const REGISTER_SCENE = 'registerScene';
+export const SELFIE_SCENE = 'selfieScene';
+export const TERM_OF_USE_SCENE = 'termOfUseScene';
+export const MEDIA_PREVIEW_SCENE = 'mediaPreviewScene';
+export const FINISH_SCENE = 'finishScene';
+export const PROFILE_SCENE = 'profileScene';
+export const EDIT_PROFILE_SCENE = 'editProfileScene';
+export const PHOTO_DETAIL_SCENE = 'photoDetailScene';
+export const LOGIN_SCENE = 'loginScene';
+export const SEARCH_SCENE = 'searchScene';
+export const CART_SCENE = 'cartScene';
+export const HISTORY_SCENE = 'historyScene';
+export const PAYMENT_SCENE = 'paymentScene';

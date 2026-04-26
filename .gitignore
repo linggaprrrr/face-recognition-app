@@ -1,0 +1,135 @@
+# =========================
+
+# Node / React Native
+
+# =========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.expo/
+.expo-shared/
+
+# Metro bundler
+
+.metro-health-check*
+.cache/
+dist/
+build/
+
+# Logs
+
+logs
+*.log
+
+# Environment files
+
+.env
+.env.*
+!.env.example
+
+# =========================
+
+# Mac / OS
+
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =========================
+
+# IDE / Editor
+
+# =========================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+
+# Android
+
+# =========================
+
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+*.keystore
+*.jks
+
+# =========================
+
+# iOS
+
+# =========================
+
+ios/build/
+ios/Pods/
+ios/Podfile.lock
+*.xcworkspace
+*.xcuserdata
+*.xcodeproj/project.xcworkspace
+*.xcodeproj/xcuserdata
+
+# =========================
+
+# React Native specific
+
+# =========================
+
+# Temporary files
+
+*.tmp
+*.temp
+
+# Bundle output
+
+*.jsbundle
+
+# Hermes
+
+*.hbc
+
+# =========================
+
+# Testing
+
+# =========================
+
+coverage/
+
+# =========================
+
+# Misc
+
+# =========================
+
+*.orig
+*.rej
+
+# =========================
+
+# Fastlane
+
+# =========================
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# =========================
+
+# Firebase / Secrets
+
+# =========================
+
+google-services.json
+GoogleService-Info.plist
