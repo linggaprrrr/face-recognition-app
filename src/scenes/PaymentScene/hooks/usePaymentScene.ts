@@ -1,7 +1,5 @@
 import { useLazyGetTransactionDetailQuery } from '@redux/services/transaction';
 import { Navigation } from '@navigations';
-import { WebViewNavigation } from 'react-native-webview';
-import { useCallback } from 'react';
 
 interface UsePaymentSceneProps {
     fromPage: 'payment' | 'detail';
@@ -11,39 +9,36 @@ interface UsePaymentSceneProps {
 export const usePaymentScene = ({ fromPage, transactionId }: UsePaymentSceneProps) => {
     const [getTransactionDetail, { isLoading }] = useLazyGetTransactionDetailQuery();
 
-    const handleNavigation = async () => {
-        // Hentikan webview dari navigasi lebih lanjut
+    const handleNavigation = async (url: string = '') => {
+        // Cancel — just go back
+        if (url.startsWith('app://payment/cancel')) {
+            Navigation.pop();
+            return;
+        }
+
+        // Back from detail page — just pop
         if (fromPage === 'detail') {
             Navigation.pop();
-            return false;
+            return;
         }
 
+        // Success or back from payment flow — check status then navigate to history
         try {
-            // Periksa status transaksi sebelum navigasi
             const data = await getTransactionDetail({ transaction_id: transactionId }).unwrap();
-
-            Navigation.homeScene(Navigation.RESET);
-
-            if (data?.status === 'paid') {
-                // Jika lunas, navigasi ke riwayat dan tampilkan modal detail
-                setTimeout(() => {
-                    Navigation.historyScene({ transactionId });
-                }, 500);
-            } else {
-                // Jika belum lunas (pending, dll.), navigasi ke daftar riwayat saja
-                setTimeout(() => {
-                    Navigation.historyScene({}); // Tanpa transactionId
-                }, 500);
-            }
-        } catch (error) {
-            console.error("Gagal mendapatkan status transaksi:", error);
-            // Fallback: navigasi ke daftar riwayat
             Navigation.homeScene(Navigation.RESET);
             setTimeout(() => {
-                Navigation.historyScene({});
+                if (data?.status === 'paid' || data?.status === 'success' || data?.status === 'completed') {
+                    Navigation.historyScene({ transactionId });
+                } else {
+                    Navigation.historyScene({});
+                }
             }, 500);
+        } catch (error) {
+            console.error('Gagal mendapatkan status transaksi:', error);
+            Navigation.homeScene(Navigation.RESET);
+            setTimeout(() => Navigation.historyScene({}), 500);
         }
-    }
+    };
 
     return {
         state: { isLoading },

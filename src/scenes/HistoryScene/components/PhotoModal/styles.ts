@@ -1,182 +1,253 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import colors from '@colors'; 
+import colors from '@colors';
 
-const screenWidth = Dimensions.get('window').width;
+const { width: screenWidth } = Dimensions.get('window');
+const PHOTO_SIZE = (screenWidth - 52) / 2;
 
 export default StyleSheet.create({
-    fullScreenModalContainer: {
-        flex: 1,
-        backgroundColor: colors.white, 
-    },
-    headerContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between', 
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.gray[4], 
-    },
-    headerPlaceholder: { 
-        width: 30, 
-    },
-    modalTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: colors.black,
-        textAlign: 'center',
-        flex: 1, 
-    },
-    closeButton: {
-        padding: 5, 
-        width: 30, 
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    closeButtonText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: colors.black, 
-    },
-    contentContainer: {
-        flex: 1, 
-        // Menghapus padding agar FlatList bisa mengontrolnya sendiri
-    },
-    photoList: {
-        paddingHorizontal: 10,
-    },
-    listContentContainer: {
-        paddingBottom: 10, 
-    },
-    photoItemContainer: {
-        marginBottom: 15,
-        alignItems: 'center',
-        borderRadius: 8,
-        position: 'relative', // Diperlukan untuk checkbox overlay
-    },
-    photoImage: {
-        width: screenWidth - 40, 
-        height: screenWidth - 40, 
-        borderRadius: 8,
-        marginBottom: 8,
-    },
-    photoFilename: {
-        fontSize: 14,
-        color: colors.gray[1],
-        marginTop: 4,
-    },
-    noPhotosText: {
-        textAlign: 'center',
-        color: colors.gray[1],
-        paddingVertical: 30,
-    },
-    centeredMessage: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    transactionInfoContainer: {
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.gray[4],
-        marginBottom: 10,
-    },
-    infoRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 5,
-    },
-    infoLabel: {
-        color: colors.gray[1],
-        fontWeight: '600',
-    },
-    infoValue: {
-        color: colors.black,
-        fontWeight: 'bold',
-    },
-    statusText: {
-        paddingHorizontal: 8,
-        paddingVertical: 2,
-        borderRadius: 12,
-        overflow: 'hidden',
-        color: colors.white, 
-        fontSize: 12,
-    },
-    statusPaid: { // Mengubah nama properti menjadi PascalCase
-        backgroundColor: colors.green[2], 
-    },
-    statusPending: { // Mengubah nama properti menjadi PascalCase dan menyamakan warna
-        backgroundColor: colors.gray[1], // Sesuai dengan TransactionItem
-        color: colors.white, // Sesuai dengan statusText default
-    },
-    statusExpired: { // Mengubah nama properti menjadi PascalCase
-        backgroundColor: colors.red[1],
-    },
-    statusFailed: { // Mengubah nama properti menjadi PascalCase dan menyamakan warna
-        backgroundColor: colors.red[1], // Menggunakan red[1] agar konsisten dengan statusExpired dan asumsi colors.danger adalah red[1]
-    },
-    statusCancelled: { // Menambahkan status Cancelled
-        backgroundColor: colors.gray[1],
-    },
-    statusSuccess: { // Menambahkan status Success (jika ada)
-        backgroundColor: colors.green[2],
-    },
-    headerControls: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        paddingHorizontal: 20,
-        paddingBottom: 10,
-    },
-    selectAllContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 8,
-    },
-    selectAllText: {
-        color: colors.black,
-    },
-    checkbox: {
-        height: 20,
-        width: 20,
-        borderRadius: 4,
-        borderWidth: 2,
-        borderColor: colors.black,
-    },
-    checkboxOverlay: {
-        position: 'absolute',
-        top: 10,
-        right: 10,
-        backgroundColor: 'rgba(255, 255, 255, 0.7)',
-        padding: 5,
-        borderRadius: 8,
-    },
-    bottomBar: {
-        padding: 15,
-        paddingBottom: 30,
-        borderTopWidth: 1,
-        borderTopColor: colors.gray[4],
-        backgroundColor: colors.white,
-        height:100
-    },
-    bottomBarPending: {
-        gap: 10,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    actionButton: {
-        borderRadius: 25,
-        height: 50,
-    },
-    cancelButton: {
-        backgroundColor: colors.white,
-        borderWidth: 1,
-        borderColor: colors.red[1],
-    },
-    cancelButtonText: {
-        color: colors.red[1],
-    },
- });
+  fullScreenModalContainer: {
+    flex: 1,
+    backgroundColor: colors.bg,
+  },
+
+  // ─── Header ──────────────────────────────────────────────────
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+    backgroundColor: colors.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
+  closeButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: colors.surface2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.textMid,
+    lineHeight: 18,
+  },
+  modalTitle: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: colors.text,
+    letterSpacing: -0.2,
+  },
+  headerPlaceholder: {
+    width: 36,
+  },
+
+  // ─── Inline toast ─────────────────────────────────────────────
+  inlineToast: {
+    marginHorizontal: 16,
+    marginTop: 10,
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    gap: 2,
+  },
+  inlineToastSuccess: {
+    backgroundColor: colors.successDim,
+    borderLeftWidth: 4,
+    borderLeftColor: colors.success,
+  },
+  inlineToastError: {
+    backgroundColor: colors.errorDim,
+    borderLeftWidth: 4,
+    borderLeftColor: colors.error,
+  },
+  inlineToastTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  inlineToastSubtitle: {
+    fontSize: 12,
+    color: colors.textMid,
+  },
+
+  // ─── Transaction info card ────────────────────────────────────
+  transactionInfoContainer: {
+    marginHorizontal: 16,
+    marginTop: 16,
+    marginBottom: 4,
+    backgroundColor: colors.surface,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: 16,
+    gap: 10,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  infoLabel: {
+    fontSize: 13,
+    color: colors.textMid,
+    fontWeight: '500',
+  },
+  infoValue: {
+    fontSize: 13,
+    color: colors.text,
+    fontWeight: '600',
+  },
+  statusBadge: {
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+  statusText: {
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  statusPaid: {
+    backgroundColor: colors.successDim,
+  },
+  statusPaidText: {
+    color: colors.success,
+  },
+  statusPending: {
+    backgroundColor: colors.amberDim,
+  },
+  statusPendingText: {
+    color: colors.amber,
+  },
+  statusExpired: {
+    backgroundColor: colors.errorDim,
+  },
+  statusExpiredText: {
+    color: colors.error,
+  },
+  statusFailed: {
+    backgroundColor: colors.errorDim,
+  },
+  statusFailedText: {
+    color: colors.error,
+  },
+  statusCancelled: {
+    backgroundColor: colors.border,
+  },
+  statusCancelledText: {
+    color: colors.textMid,
+  },
+  statusSuccess: {
+    backgroundColor: colors.successDim,
+  },
+  statusSuccessText: {
+    color: colors.success,
+  },
+
+
+  // ─── Content / photo grid ─────────────────────────────────────
+  contentContainer: {
+    flex: 1,
+  },
+  photoList: {
+    paddingHorizontal: 16,
+  },
+  listContentContainer: {
+    paddingTop: 12,
+    paddingBottom: 16,
+  },
+  photoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  photoItemContainer: {
+    width: PHOTO_SIZE,
+    borderRadius: 14,
+    overflow: 'hidden',
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  photoImage: {
+    width: PHOTO_SIZE,
+    height: PHOTO_SIZE,
+  },
+  photoFooter: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  photoFilename: {
+    fontSize: 11,
+    color: colors.textMid,
+    flex: 1,
+  },
+  photoDownloadBtn: {
+    width: 28,
+    height: 28,
+    borderRadius: 8,
+    backgroundColor: colors.primaryDim,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  photoDownloadIcon: {
+    width: 14,
+    height: 14,
+    resizeMode: 'contain',
+    tintColor: colors.primary,
+  },
+
+  // ─── Empty / loading ──────────────────────────────────────────
+  centeredMessage: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 16,
+    padding: 32,
+  },
+  noPhotosText: {
+    fontSize: 15,
+    color: colors.textMid,
+    textAlign: 'center',
+  },
+
+  // ─── Bottom action bar ────────────────────────────────────────
+  bottomBar: {
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 24,
+    backgroundColor: colors.surface,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  bottomBarPaid: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  bottomBarPending: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  downloadAllButton: {
+    backgroundColor: colors.surface,
+    borderWidth: 1.5,
+    borderColor: colors.primary,
+  },
+  actionButton: {
+    flex: 1,
+    borderRadius: 14,
+    height: 52,
+  },
+  cancelButton: {
+    backgroundColor: colors.surface,
+    borderWidth: 1.5,
+    borderColor: colors.error,
+  },
+});

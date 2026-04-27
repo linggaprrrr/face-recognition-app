@@ -14,10 +14,8 @@ import icons from '@icons';
 import styles from './styles';
 import colors from '@colors';
 import {Navigation} from '@navigations';
-
-interface ITermOfUseScene {
-  setShouldShowLoading: (value: boolean) => void;
-}
+import {useDispatch} from 'react-redux';
+import {setPendingUpload} from '@redux/slice/home-slice';
 
 const USE_ITEMS = [
   'Mencocokkan dan menemukan foto Anda dalam sistem kami',
@@ -30,11 +28,12 @@ const GUARANTEE_ITEMS = [
   'Dapat dihapus kapan saja melalui pengaturan akun',
 ];
 
-const TermOfUseScene = ({setShouldShowLoading}: ITermOfUseScene) => {
+const TermOfUseScene = () => {
   const [checked, setChecked] = useState(false);
+  const dispatch = useDispatch();
 
   function goBack() {
-    setShouldShowLoading(true);
+    dispatch(setPendingUpload(true));
     Navigation.pop();
   }
 

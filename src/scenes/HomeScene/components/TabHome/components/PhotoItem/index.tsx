@@ -10,9 +10,10 @@ interface IPhotoItem {
   item: Face.IPhotos;
 }
 
-const getLabelInfo = (score: number): { text: string; color: string } => {
-  if (score >= 0.8) return { text: 'Paling Mirip', color: '#477e5c' };
-  if (score >= 0.65) return { text: 'Mirip', color: '#D97706' };
+const getLabelInfo = (score: number, isPurchased: boolean): { text: string; color: string } => {
+  if (isPurchased) return { text: 'Sudah dibeli', color: '#464452' };
+  if (score >= 0.72) return { text: 'Paling Mirip', color: '#477e5c' };
+  if (score >= 0.60) return { text: 'Mirip', color: '#D97706' };
   return { text: 'Mungkin Saya', color: '#DC2626' };
 };
 
@@ -22,7 +23,7 @@ const formatPrice = (price: number) =>
 const PhotoCell = memo(({ image }: { image: Face.FaceSearchResult }) => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const inCart = cartItems.some(item => item.photo_id === image.photo_id);
-  const label = getLabelInfo(image.score);
+  const label = getLabelInfo(image.score, image.is_purchased);
 
   return (
     <Pressable onPress={() => Navigation.photoDetailScene(image)}>

@@ -26,7 +26,7 @@ const ConfirmationSectionComponent = ({
     if (home.reset_photo) {
       setShouldShowLoading(true);
     } else {
-      Navigation.termOfUseScene({ setShouldShowLoading });
+      Navigation.termOfUseScene({});
     }
   }
 

@@ -5,12 +5,14 @@ import { ActivityIndicator, View } from "react-native";
 import styles from "./styles";
 import { ModalRef } from "@components/Modal/types";
 import { Navigation } from "@navigations";
-import { useUploadFaceReferenceMutation } from "@redux/services/face-recognition";
 import { useLazyGetMeQuery } from "@redux/services/users";
 import Toast from "react-native-toast-message";
 import { useDispatch } from "react-redux";
 import { setUser } from "@redux/slice/user-slice";
 import { setPhotoId } from "@redux/slice/home-slice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BASE_API } from "@constants/index";
+import RNBlobUtil from "react-native-blob-util";
 
 interface ILoadingModal {
   isLoading: boolean;
@@ -18,56 +20,68 @@ interface ILoadingModal {
 }
 
 const LoadingModalComponent = ({ isLoading, mediaPaths }: ILoadingModal) => {
-  const [uploadFaceReference] = useUploadFaceReferenceMutation();
   const modalRef = useRef<ModalRef>(null);
   const dispatch = useDispatch();
   const [trigger] = useLazyGetMeQuery();
 
   useEffect(() => {
     if (isLoading && mediaPaths?.length === 2) {
-      openModal();
+      modalRef.current?.openModal();
       uploadAllAndNavigate(mediaPaths);
     }
   }, [isLoading, mediaPaths]);
 
-  function openModal() {
-    modalRef.current?.openModal();
+  async function uploadSingle(path: string, filename: string): Promise<Face.UploadResponse> {
+    const token = await AsyncStorage.getItem('token');
+    const baseUrl = BASE_API.replace(/\/$/, '');
+    const url = `${baseUrl}/faces/register-reference?is_reference=true`;
+
+    console.log('[Upload] BlobUtil POST', url);
+    console.log('[Upload] path:', path);
+
+    const res = await RNBlobUtil.fetch(
+      'POST',
+      url,
+      {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+      [
+        {
+          name: 'file',
+          filename,
+          type: 'image/jpeg',
+          data: RNBlobUtil.wrap(path.replace('file://', '')),
+        },
+      ],
+    );
+
+    console.log('[Upload] status:', res.respInfo.status, res.data);
+    const json: Face.UploadResponse = res.json();
+
+    if (res.respInfo.status >= 200 && res.respInfo.status < 300) {
+      return json;
+    }
+    throw new Error(json?.message ?? `HTTP ${res.respInfo.status}`);
   }
 
   async function uploadAllAndNavigate(paths: string[]) {
     try {
-      const uploadPromises = paths.map((path, index) => {
-        const filename = `photo_${Date.now()}_${index + 1}.jpg`;
+      const result = await uploadSingle(paths[0], `photo_${Date.now()}.jpg`);
 
-        return uploadFaceReference({
-          path,
-          filename,
-          isReference: true,
-        });
-      });
+      modalRef.current?.closeModal();
+      dispatch(setPhotoId(result?.data?.id ?? ''));
 
-      const results = await Promise.all(uploadPromises);
-      const allSuccess = results.every((res) => res && res.data);
+      const authMe = await trigger();
+      if (authMe.isSuccess) dispatch(setUser(authMe?.data));
 
-      if (allSuccess) {
-        modalRef.current?.closeModal();
-
-        dispatch(setPhotoId(results[0].data?.data.id || ""));
-        const authMe = await trigger();
-        if (authMe.isSuccess) dispatch(setUser(authMe?.data));
-
-        Navigation.finishScene();
-      } else {
-        Toast.show({
-          type: "error",
-          text1: "Terjadi kesalahan saat mengunggah foto. Silakan coba lagi.",
-        });
-        modalRef.current?.closeModal();
-      }
-    } catch (error) {
+      Navigation.finishScene();
+    } catch (error: any) {
+      console.error('[Upload] failed:', error?.message ?? error);
       Toast.show({
-        type: "error",
-        text1: "Terjadi kesalahan saat mengunggah foto. Silakan coba lagi.",
+        type: 'error',
+        text1: 'Gagal Mengunggah',
+        text2: error?.message ?? 'Terjadi kesalahan. Silakan coba lagi.',
       });
       modalRef.current?.closeModal();
     }

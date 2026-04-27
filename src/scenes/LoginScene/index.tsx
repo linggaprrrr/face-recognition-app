@@ -14,6 +14,7 @@ import TextInput from '@components/TextInput';
 import Text from '@components/Text';
 
 import {useLoginScene} from './hooks/useLoginScene';
+import images from '@images';
 import icons from '@icons';
 import styles from './styles';
 import colors from '@colors';
@@ -27,10 +28,22 @@ const LoginScene = () => {
 
   useEffect(() => {
     const backAction = () => {
-      Alert.alert('Konfirmasi', 'Yakin mau keluar?', [
-        {text: 'Batal', style: 'cancel'},
-        {text: 'Ya', onPress: () => BackHandler.exitApp()},
-      ]);
+      Alert.alert(
+        'Keluar Aplikasi',
+        'Apakah kamu yakin ingin keluar?',
+        [
+          {
+            text: 'Batal',
+            style: 'cancel',
+          },
+          {
+            text: 'Keluar',
+            style: 'destructive',
+            onPress: () => BackHandler.exitApp(),
+          },
+        ],
+        {cancelable: true},
+      );
       return true;
     };
     const handler = BackHandler.addEventListener('hardwareBackPress', backAction);
@@ -56,10 +69,9 @@ const LoginScene = () => {
 
           {/* Logo */}
           <View style={styles.logoSection}>
-            <View style={styles.logoBox}>
-              <Image source={icons.faceId} style={styles.logoIcon} />
+            <View style={styles.logoImageWrapper}>
+              <Image source={images.ownize} style={styles.logoImage} />
             </View>
-            <Text style={styles.logoText}>Ownize</Text>
             <Text style={styles.logoSubtext}>AI Photo Discovery & Purchase</Text>
           </View>
 

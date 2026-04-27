@@ -9,9 +9,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
 
 const RADIUS_LABEL: Record<number, string> = {
-  0.8: 'Paling Mirip',
-  0.65: 'Seimbang',
-  0.5: 'Lebih Banyak',
+  0.72: 'Paling Mirip',
+  0.60: 'Seimbang',
+  0.47: 'Lebih Banyak',
 };
 
 interface HeaderProps {
@@ -22,8 +22,7 @@ interface HeaderProps {
 const HeaderComponent = ({ onFilterPress, photoCount }: HeaderProps) => {
   const cart = useSelector((state: RootState) => state.cart);
   const nRadius = useSelector((state: RootState) => state.home.nRadius);
-  const sensitivityLabel = RADIUS_LABEL[nRadius] ?? 'Seimbang';
-
+  const sensitivityLabel = RADIUS_LABEL[nRadius] ?? 'Lebih Banyak';
   return (
     <View style={styles.container}>
       <View>
@@ -36,10 +35,11 @@ const HeaderComponent = ({ onFilterPress, photoCount }: HeaderProps) => {
       </View>
 
       <View style={styles.sideContainer}>
-        {/* Sensitivity pill */}
+        {/* Sensitivity filter */}
         {onFilterPress && (
-          <TouchableOpacity style={styles.sensitivityPill} onPress={onFilterPress}>
-            <Text style={styles.sensitivityPillText}>{sensitivityLabel} ↓</Text>
+          <TouchableOpacity style={styles.filterBtn} onPress={onFilterPress}>
+            <Image source={icons.faceId} style={styles.faceIdIcon} />
+            <Text style={styles.filterBtnText}>{sensitivityLabel}</Text>
           </TouchableOpacity>
         )}
 

@@ -1,6 +1,7 @@
 import React, {memo} from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {Image, StyleSheet, View, Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useSelector} from 'react-redux';
 
 import ProfileScene from '@scenes/ProfileScene';
 import CartScene from '@scenes/CartScene';
@@ -10,6 +11,7 @@ import TabHome from '../TabHome';
 import {SceneKey} from '@navigations';
 import icons from '@icons';
 import colors from '@colors';
+import {RootState} from '@redux/store';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,6 +39,50 @@ const tabBarStyle = StyleSheet.create({
     fontWeight: '600',
   },
 });
+
+const badgeStyle = StyleSheet.create({
+  wrapper: {
+    width: 24,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  dot: {
+    position: 'absolute',
+    top: -4,
+    right: -6,
+    minWidth: 16,
+    height: 16,
+    borderRadius: 8,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 3,
+  },
+  dotText: {
+    color: '#fff',
+    fontSize: 9,
+    fontWeight: '700',
+    lineHeight: 16,
+  },
+});
+
+const CartTabIcon = ({focused}: {focused: boolean}) => {
+  const count = useSelector((state: RootState) => state.cart.items.length);
+  return (
+    <View style={badgeStyle.wrapper}>
+      <Image
+        source={icons.cart}
+        style={[iconStyle.tab, {tintColor: focused ? colors.primary : colors.textDim}]}
+      />
+      {count > 0 && (
+        <View style={badgeStyle.dot}>
+          <Text style={badgeStyle.dotText}>{count > 99 ? '99+' : count}</Text>
+        </View>
+      )}
+    </View>
+  );
+};
 
 const HomeContentComponent = () => {
   return (
@@ -68,12 +114,7 @@ const HomeContentComponent = () => {
         component={CartScene}
         options={{
           tabBarLabel: 'Keranjang',
-          tabBarIcon: ({focused}) => (
-            <Image
-              source={icons.cart}
-              style={[iconStyle.tab, {tintColor: focused ? colors.primary : colors.textDim}]}
-            />
-          ),
+          tabBarIcon: ({focused}) => <CartTabIcon focused={focused} />,
         }}
       />
       <Tab.Screen

@@ -3,6 +3,9 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
 import { setScreenshotPrevention } from '@utils/screenshotPrevention';
 import { Dimensions, Image, Pressable, SafeAreaView, View } from "react-native";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@redux/store';
+import { setPendingUpload } from '@redux/slice/home-slice';
 
 import Text from "@components/Text";
 import ConfirmationSection from "./components/ConfirmationSection";
@@ -31,15 +34,23 @@ const MediaPreviewScene = ({
     setShouldShowLoading,
   } = useMediaPreviewScene();
 
+  const dispatch = useDispatch();
+  const pendingUpload = useSelector((state: RootState) => state.home.pending_upload);
   const mediaPaths = [firstPhotoPath, secondPhotoPath];
 
   useFocusEffect(
     useCallback(() => {
       setScreenshotPrevention(true);
+
+      if (pendingUpload) {
+        dispatch(setPendingUpload(false));
+        setShouldShowLoading(true);
+      }
+
       return () => {
         setScreenshotPrevention(false);
       };
-    }, [])
+    }, [pendingUpload])
   );
 
   return (

@@ -1,0 +1,4 @@
+/Applications/MAMP/htdocs/react/ownize/android/app/.cxx/RelWithDebInfo/6y4t2n26/arm64-v8a/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/foo.dir
+/Applications/MAMP/htdocs/react/ownize/android/app/.cxx/RelWithDebInfo/6y4t2n26/arm64-v8a/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/boo.dir
+/Applications/MAMP/htdocs/react/ownize/android/app/.cxx/RelWithDebInfo/6y4t2n26/arm64-v8a/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/edit_cache.dir
+/Applications/MAMP/htdocs/react/ownize/android/app/.cxx/RelWithDebInfo/6y4t2n26/arm64-v8a/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/rebuild_cache.dir

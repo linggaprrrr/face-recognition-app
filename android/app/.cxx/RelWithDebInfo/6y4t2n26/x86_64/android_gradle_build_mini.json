@@ -1,0 +1,115 @@
+{
+  "buildFiles": [
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/@react-native-community/slider/android/src/main/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/@react-native-google-signin/google-signin/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/react-native-blob-util/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/react-native-haptic-feedback/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/react-native-image-picker/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/react-native-permissions/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/react-native-screenshot-prevent/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/react-native-webview/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/Applications/MAMP/htdocs/react/ownize/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/linggapangestu/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Applications/MAMP/htdocs/react/ownize/android/app/.cxx/RelWithDebInfo/6y4t2n26/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/linggapangestu/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Applications/MAMP/htdocs/react/ownize/android/app/.cxx/RelWithDebInfo/6y4t2n26/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "react_codegen_RNCSlider::@4898bc4726ecf1751b6a": {
+      "artifactName": "react_codegen_RNCSlider",
+      "abi": "x86_64",
+      "output": "/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/RelWithDebInfo/6y4t2n26/obj/x86_64/libreact_codegen_RNCSlider.so",
+      "runtimeFiles": [
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/8353346cf6a42bbd99c4ba3f50030244/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86_64/libfbjni.so",
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/ca056b58370eff70bbf88f97435c5286/transformed/react-android-0.83.0-release/prefab/modules/jsi/libs/android.x86_64/libjsi.so",
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/ca056b58370eff70bbf88f97435c5286/transformed/react-android-0.83.0-release/prefab/modules/reactnative/libs/android.x86_64/libreactnative.so"
+      ]
+    },
+    "react_codegen_safeareacontext::@7984cd80db47aa7b952a": {
+      "artifactName": "react_codegen_safeareacontext",
+      "abi": "x86_64",
+      "output": "/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/RelWithDebInfo/6y4t2n26/obj/x86_64/libreact_codegen_safeareacontext.so",
+      "runtimeFiles": [
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/8353346cf6a42bbd99c4ba3f50030244/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86_64/libfbjni.so",
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/ca056b58370eff70bbf88f97435c5286/transformed/react-android-0.83.0-release/prefab/modules/jsi/libs/android.x86_64/libjsi.so",
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/ca056b58370eff70bbf88f97435c5286/transformed/react-android-0.83.0-release/prefab/modules/reactnative/libs/android.x86_64/libreactnative.so"
+      ]
+    },
+    "react_codegen_RNPermissionsSpec::@7ad697819b753921c957": {
+      "artifactName": "react_codegen_RNPermissionsSpec",
+      "abi": "x86_64",
+      "runtimeFiles": []
+    },
+    "react_codegen_RNScreenshotPreventSpec::@e23f1bec792c8ddcabee": {
+      "artifactName": "react_codegen_RNScreenshotPreventSpec",
+      "abi": "x86_64",
+      "runtimeFiles": []
+    },
+    "react_codegen_RNCWebViewSpec::@eb48929f9f7453740a6c": {
+      "artifactName": "react_codegen_RNCWebViewSpec",
+      "abi": "x86_64",
+      "runtimeFiles": []
+    },
+    "react_codegen_RNImagePickerSpec::@f66ee9a2efecfb28bee4": {
+      "artifactName": "react_codegen_RNImagePickerSpec",
+      "abi": "x86_64",
+      "runtimeFiles": []
+    },
+    "react_codegen_rnscreens::@25bcbd507e98d3a854ad": {
+      "artifactName": "react_codegen_rnscreens",
+      "abi": "x86_64",
+      "output": "/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/RelWithDebInfo/6y4t2n26/obj/x86_64/libreact_codegen_rnscreens.so",
+      "runtimeFiles": [
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/ca056b58370eff70bbf88f97435c5286/transformed/react-android-0.83.0-release/prefab/modules/reactnative/libs/android.x86_64/libreactnative.so",
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/ca056b58370eff70bbf88f97435c5286/transformed/react-android-0.83.0-release/prefab/modules/jsi/libs/android.x86_64/libjsi.so",
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/8353346cf6a42bbd99c4ba3f50030244/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86_64/libfbjni.so"
+      ]
+    },
+    "appmodules::@6890427a1f51a3e7e1df": {
+      "artifactName": "appmodules",
+      "abi": "x86_64",
+      "output": "/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/RelWithDebInfo/6y4t2n26/obj/x86_64/libappmodules.so",
+      "runtimeFiles": [
+        "/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/RelWithDebInfo/6y4t2n26/obj/x86_64/libreact_codegen_RNCSlider.so",
+        "/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/RelWithDebInfo/6y4t2n26/obj/x86_64/libreact_codegen_safeareacontext.so",
+        "/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/RelWithDebInfo/6y4t2n26/obj/x86_64/libreact_codegen_rnscreens.so",
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/8353346cf6a42bbd99c4ba3f50030244/transformed/fbjni-0.7.0/prefab/modules/fbjni/libs/android.x86_64/libfbjni.so",
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/ca056b58370eff70bbf88f97435c5286/transformed/react-android-0.83.0-release/prefab/modules/jsi/libs/android.x86_64/libjsi.so",
+        "/Users/linggapangestu/.gradle/caches/8.13/transforms/ca056b58370eff70bbf88f97435c5286/transformed/react-android-0.83.0-release/prefab/modules/reactnative/libs/android.x86_64/libreactnative.so"
+      ]
+    },
+    "react_codegen_RNHapticFeedbackSpec::@a83561f277f6afbb326c": {
+      "artifactName": "react_codegen_RNHapticFeedbackSpec",
+      "abi": "x86_64",
+      "runtimeFiles": []
+    },
+    "react_codegen_ReactNativeBlobUtilSpec::@7d3cc6108106e04bb830": {
+      "artifactName": "react_codegen_ReactNativeBlobUtilSpec",
+      "abi": "x86_64",
+      "runtimeFiles": []
+    },
+    "react_codegen_RNGoogleSignInCGen::@337b7b353bd94a4215c0": {
+      "artifactName": "react_codegen_RNGoogleSignInCGen",
+      "abi": "x86_64",
+      "runtimeFiles": []
+    },
+    "react_codegen_rnasyncstorage::@1596841e19ec5b9eeffe": {
+      "artifactName": "react_codegen_rnasyncstorage",
+      "abi": "x86_64",
+      "runtimeFiles": []
+    }
+  }
+}

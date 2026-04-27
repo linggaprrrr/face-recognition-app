@@ -4,6 +4,7 @@ interface HomeState {
   date: string;
   unit_id: string;
   reset_photo: boolean;
+  pending_upload: boolean;
   photo_id: string;
   feedPhotos: Face.FaceSearchResult[];
   nRadius: number;
@@ -13,9 +14,10 @@ const initialState: HomeState = {
   date: '',
   unit_id: '',
   reset_photo: false,
+  pending_upload: false,
   photo_id: '',
   feedPhotos: [],
-  nRadius: 0.65,
+  nRadius: 0.47,
 };
 
 const homeSlice = createSlice({
@@ -40,11 +42,14 @@ const homeSlice = createSlice({
     setNRadius: (state, action: PayloadAction<number>) => {
       state.nRadius = action.payload;
     },
+    setPendingUpload: (state, action: PayloadAction<boolean>) => {
+      state.pending_upload = action.payload;
+    },
     clearHomeState: () => {
       return initialState;
     },
   },
 });
 
-export const { setDate, setUnitId, setResetPhoto, setPhotoId, setFeedPhotos, setNRadius, clearHomeState } = homeSlice.actions;
+export const { setDate, setUnitId, setResetPhoto, setPhotoId, setFeedPhotos, setNRadius, setPendingUpload, clearHomeState } = homeSlice.actions;
 export default homeSlice.reducer;

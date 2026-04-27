@@ -24,10 +24,11 @@ import { RootState } from '@redux/store';
 import { setNRadius } from '@redux/slice/home-slice';
 import { ActivityIndicator } from 'react-native';
 
+// ArcFace thresholds: different-person ceiling ~0.45, cross-session same-person 0.60–0.75
 const ACCURACY_OPTS = [
-  { label: '🎯 Paling Mirip', value: 0.8, hint: 'Paling akurat' },
-  { label: '⚖️ Seimbang', value: 0.65, hint: 'Disarankan' },
-  { label: '🔍 Lebih Banyak', value: 0.5, hint: 'Tampilkan lebih banyak' },
+  { label: '🎯 Paling Mirip', value: 0.72, hint: 'Paling akurat' },
+  { label: '⚖️ Seimbang', value: 0.60, hint: 'Disarankan' },
+  { label: '🔍 Lebih Banyak', value: 0.47, hint: 'Tampilkan lebih banyak' },
 ];
 
 const TabHomeComponent = () => {

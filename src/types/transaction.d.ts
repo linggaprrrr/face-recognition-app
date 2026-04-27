@@ -80,7 +80,7 @@ declare namespace Transaction {
     interface TransactionHistoryPhoto {
         id: string;
         filename: string;
-        original_url: string;
+        original_path: string;
         unit: Unit; 
     }
 

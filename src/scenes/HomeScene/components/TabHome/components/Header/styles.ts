@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
+
   iconBtn: {
     position: 'relative',
     width: 40,
@@ -59,6 +60,29 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 10,
     fontWeight: '700',
+  },
+
+  faceIdIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+    tintColor: colors.primary,
+  },
+  filterBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    height: 36,
+    paddingHorizontal: 12,
+    borderRadius: 18,
+    backgroundColor: colors.primaryDim,
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  filterBtnText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: colors.primary,
   },
 
   // sensitivity pill button

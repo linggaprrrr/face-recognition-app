@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/RelWithDebInfo/6y4t2n26/obj/x86

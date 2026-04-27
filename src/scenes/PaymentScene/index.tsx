@@ -124,23 +124,16 @@ function PaymentScene({
           }
         }}
         onShouldStartLoadWithRequest={(event: WebViewNavigation) => {
-          if (event.url.startsWith('app://payment/back')) {
-            handleNavigation();
+          if (event.url.startsWith('app://')) {
+            handleNavigation(event.url);
             return false;
           }
           return true;
         }}
+        onError={() => handleNavigation('app://payment/back')}
       />
 
-      {/* Tombol native — jangan pakai tombol download dari web */}
-      {qrBase64 && (
-        <View style={{ padding: 16 }}>
-          <Button
-            title="Simpan QRIS"
-            onPress={() => saveDokuQR(qrBase64, transactionId)}
-          />
-        </View>
-      )}
+   
     </SafeAreaView>
   );
 }

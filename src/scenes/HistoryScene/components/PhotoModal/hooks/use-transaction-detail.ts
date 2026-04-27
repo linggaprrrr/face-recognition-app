@@ -3,7 +3,6 @@ import { useCallback, useState } from 'react';
 import { PermissionsAndroid, Platform, Alert } from 'react-native';
 import RNFS from 'react-native-fs';
 import RNBlobUtil from 'react-native-blob-util';
-import Toast from 'react-native-toast-message';
 
 interface UseTransactionDetailProps {
     transaction_id?: string;
@@ -47,12 +46,11 @@ export const useTransactionDetail = ({ transaction_id, onClose }: UseTransaction
                     onPress: async () => {
                         try {
                             await cancelTransaction({ transaction_id }).unwrap();
-                            Toast.show({ type: 'success', text1: 'Transaksi berhasil dibatalkan.' });
                             await refetch();
                             onClose?.();
                         } catch (err) {
                             console.error('Gagal membatalkan transaksi:', err);
-                            Toast.show({ type: 'error', text1: 'Gagal membatalkan transaksi.' });
+                            Alert.alert('Gagal', 'Gagal membatalkan transaksi. Coba lagi.');
                         }
                     },
                     style: "destructive",
@@ -87,20 +85,19 @@ export const useTransactionDetail = ({ transaction_id, onClose }: UseTransaction
         }
     };
 
-    const handleDownload = async (selectedPhotos: Transaction.TransactionHistoryPhoto[]) => {
+    const handleDownload = async (selectedPhotos: Transaction.TransactionHistoryPhoto[]): Promise<boolean> => {
         const hasPermission = await requestStoragePermission();
         if (!hasPermission) {
             Alert.alert('Izin Ditolak', 'Tidak dapat mengunduh foto tanpa izin penyimpanan.');
-            return;
+            return false;
         }
 
         setIsDownloading(true);
-        Toast.show({ type: 'info', text1: 'Memulai unduhan...' });
 
         try {
             for (const photo of selectedPhotos) {
                 const fileName = photo.filename;
-                const originalUrl = photo.original_url;
+                const originalUrl = photo.original_path;
 
                 const configOptions = Platform.select({
                     ios: {
@@ -125,10 +122,10 @@ export const useTransactionDetail = ({ transaction_id, onClose }: UseTransaction
                     await RNBlobUtil.config(configOptions).fetch('GET', originalUrl);
                 }
             }
-            Toast.show({ type: 'success', text1: 'Semua foto terpilih telah diunduh.' });
+            return true;
         } catch (err) {
             console.error('Gagal mengunduh:', err);
-            Toast.show({ type: 'error', text1: 'Gagal mengunduh foto.' });
+            return false;
         } finally {
             setIsDownloading(false);
         }

@@ -22,8 +22,6 @@ export const useHistoryScene = ({ transactionId }: UseHistorySceneProps) => {
         user_id: user.id,
         page,
         limit: ITEMS_PER_PAGE,
-    }, {
-        pollingInterval: 3000,
     });
 
     useEffect(() => {
