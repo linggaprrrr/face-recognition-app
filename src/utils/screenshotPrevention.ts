@@ -10,6 +10,18 @@ const native = TurboModuleRegistry.get<{ enabled: (enable: boolean) => void }>(
   'RNScreenshotPrevent',
 );
 
+let count = 0;
+
 export function setScreenshotPrevention(enable: boolean): void {
-  native?.enabled(enable);
+  if (enable) {
+    count++;
+    if (count === 1) {
+      native?.enabled(true);
+    }
+  } else {
+    count = Math.max(0, count - 1);
+    if (count === 0) {
+      native?.enabled(false);
+    }
+  }
 }

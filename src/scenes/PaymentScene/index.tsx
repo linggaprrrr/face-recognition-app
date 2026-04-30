@@ -67,7 +67,7 @@ function PaymentScene({
 
   useFocusEffect(
     useCallback(() => {
-      setScreenshotPrevention(true);
+      setScreenshotPrevention(false);
 
       return () => {        
         setScreenshotPrevention(false);

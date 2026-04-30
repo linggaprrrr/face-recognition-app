@@ -2,7 +2,7 @@ import colors from '@colors';
 import React, {JSX} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback} from 'react';
-import { setScreenshotPrevention } from '@utils/screenshotPrevention';
+import {setScreenshotPrevention} from '@utils/screenshotPrevention';
 import {
   View,
   SafeAreaView,

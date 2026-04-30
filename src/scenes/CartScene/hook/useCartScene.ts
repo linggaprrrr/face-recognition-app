@@ -8,6 +8,7 @@ import {
 } from "@redux/slice/cart-slice";
 import { useCreateTransactionMutation, useCreateTransactionPayMutation } from '@redux/services/transaction';
 import Toast from 'react-native-toast-message';
+import { Alert } from 'react-native';
 import { Navigation } from '@navigations';
 
 function useCartScene() {
@@ -168,14 +169,22 @@ function useCartScene() {
             }
 
             setIsLoadingCheckout(false)
-        } catch (err) {
+        } catch (err: any) {
             console.log('Gagal membuat transaksi:', err);
+            setIsLoadingCheckout(false);
 
-            setIsLoadingCheckout(false)
-            Toast.show({
-                type: 'error',
-                text1: 'Gagal membuat transaksi',
-            });
+            if (err?.status === 400 && err?.data?.detail?.includes('transaction in progress')) {
+                Alert.alert(
+                    'Transaksi Belum Selesai',
+                    'Kamu masih memiliki transaksi yang belum diselesaikan. Harap selesaikan atau batalkan transaksi tersebut terlebih dahulu.',
+                    [{ text: 'OK' }],
+                );
+            } else {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Gagal membuat transaksi',
+                });
+            }
         }
     }
 
