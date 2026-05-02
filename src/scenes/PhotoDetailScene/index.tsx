@@ -36,6 +36,7 @@ const PhotoDetailScene = (initialItem: Face.FaceSearchResult) => {
   );
 
   const flatListRef = useRef<FlatList>(null);
+  const navigatingRef = useRef(false);
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
   useFocusEffect(
@@ -87,7 +88,7 @@ const PhotoDetailScene = (initialItem: Face.FaceSearchResult) => {
       {/* Top bar */}
       <View style={styles.topBar}>
         <Pressable style={styles.topBtn} onPress={() => Navigation.pop()} hitSlop={12}>
-          <Image source={icons.arrowLeftRound} style={styles.topBtnIcon} />
+          <Image source={icons.chevronLeft} style={styles.topBtnIcon} />
         </Pressable>
 
         <View style={styles.pagerPill}>
@@ -96,7 +97,16 @@ const PhotoDetailScene = (initialItem: Face.FaceSearchResult) => {
           </Text>
         </View>
 
-        <Pressable style={styles.topBtn} onPress={() => Navigation.cartScene()} hitSlop={12}>
+        <Pressable
+          style={styles.topBtn}
+          hitSlop={12}
+          onPress={() => {
+            if (navigatingRef.current) return;
+            navigatingRef.current = true;
+            Navigation.cartScene();
+            setTimeout(() => { navigatingRef.current = false; }, 600);
+          }}>
+
           <Image source={icons.cart} style={styles.topBtnIcon} />
           {cart.items.length > 0 && (
             <View style={styles.badge}>
@@ -118,7 +128,6 @@ const PhotoDetailScene = (initialItem: Face.FaceSearchResult) => {
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig.current}
         getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
-        initialScrollIndex={initialIndex}
       />
 
       {/* Prev / Next arrow buttons — float over the photo area */}

@@ -58,7 +58,7 @@ export function searchScene(props?: object) {
 }
 
 export function cartScene(props?: object) {
-  NavigationAction.push(SceneKey.CART_SCENE, props);
+  NavigationAction.forcePush(SceneKey.CART_SCENE, props);
 }
 
 export function historyScene(props?: object) {

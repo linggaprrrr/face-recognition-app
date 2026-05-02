@@ -27,7 +27,7 @@ const CartScene: React.FC = () => {
 
   const totalPrice = transactions
     .filter(t => selectedIds.has(t.photo_id))
-    .reduce((sum, t) => sum + t.photo_price, 0);
+    .reduce((sum, t) => sum + (t.photo_price ?? 0), 0);
 
   useFocusEffect(
     useCallback(() => {
@@ -166,7 +166,7 @@ const CartItemRow: React.FC<CartItemProps> = ({item, isSelected, onToggle}) => {
         </Text>
         <Text style={styles.itemSubtitle}>{item.unit_name}</Text>
         <Text style={styles.itemPrice}>
-          Rp {item.photo_price.toLocaleString('id-ID')}
+          Rp {(item.photo_price ?? 0).toLocaleString('id-ID')}
         </Text>
       </View>
     </TouchableOpacity>
