@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   FlatList,
   TouchableOpacity,
+  TextInput,
   ActivityIndicator,
   RefreshControl,
   Image,
@@ -20,14 +21,17 @@ import Text from '@components/Text';
 
 const CartScene: React.FC = () => {
   const {state, method} = useCartScene();
-  const {transactions, isLoading, isRefreshing, selectedIds} = state;
-  const {toggleSelect, toggleSelectAll, deleteSelected, onRefreshList, handleDownload} = method;
+  const {transactions, isLoading, isApplyingPromo, isRefreshing, selectedIds, promoCode, appliedPromo} = state;
+  const {toggleSelect, toggleSelectAll, deleteSelected, onRefreshList, handleDownload, setPromoCode, applyPromoCode} = method;
 
   const isAllSelected = selectedIds.size === transactions.length && selectedIds.size > 0;
 
-  const totalPrice = transactions
+  const subtotal = transactions
     .filter(t => selectedIds.has(t.photo_id))
     .reduce((sum, t) => sum + (t.photo_price ?? 0), 0);
+
+  const discountAmount = appliedPromo?.discount_amount ?? 0;
+  const totalPrice = Math.max(0, subtotal - discountAmount);
 
   useFocusEffect(
     useCallback(() => {
@@ -113,21 +117,54 @@ const CartScene: React.FC = () => {
 
       {/* Bottom bar */}
       <View style={styles.bottomBar}>
-        <View style={styles.totalInfo}>
-          <Text style={styles.totalLabel}>Total ({selectedIds.size} foto)</Text>
-          <Text style={styles.totalAmount}>
-            Rp {totalPrice.toLocaleString('id-ID')}
+        {/* Promo code */}
+        <View style={styles.promoRow}>
+          <TextInput
+            style={styles.promoInput}
+            placeholder="Kode promo"
+            placeholderTextColor={colors.textDim}
+            value={promoCode}
+            onChangeText={setPromoCode}
+            autoCapitalize="characters"
+          />
+          <TouchableOpacity
+            style={[styles.promoButton, isApplyingPromo && styles.promoButtonDisabled]}
+            onPress={applyPromoCode}
+            disabled={isApplyingPromo}>
+            {isApplyingPromo ? (
+              <ActivityIndicator size="small" color={colors.white} />
+            ) : (
+              <Text style={styles.promoButtonText}>Pakai</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+
+        {/* Summary */}
+        <View style={styles.summaryRow}>
+          <Text style={styles.summaryLabel}>Potongan</Text>
+          <Text style={[styles.summaryValue, discountAmount > 0 && styles.discountValue]}>
+            {discountAmount > 0 ? `- Rp ${discountAmount.toLocaleString('id-ID')}` : 'Rp 0'}
           </Text>
         </View>
-        <View style={styles.downloadButtonWrapper}>
-          <Button
-            onPress={handleDownload}
-            label="Checkout →"
-            labelColor={colors.white}
-            isDisabled={selectedIds.size === 0}
-            containerStyle={styles.downloadButton}
-            loading={isLoading}
-          />
+
+        {/* Total + checkout */}
+        <View style={styles.totalRow}>
+          <View style={styles.totalInfo}>
+            <Text style={styles.totalLabel}>Total ({selectedIds.size} foto)</Text>
+            <Text style={styles.totalAmount}>
+              Rp {totalPrice.toLocaleString('id-ID')}
+            </Text>
+          </View>
+          <View style={styles.downloadButtonWrapper}>
+            <Button
+              onPress={handleDownload}
+              label="Checkout →"
+              labelColor={colors.white}
+              isDisabled={selectedIds.size === 0}
+              containerStyle={styles.downloadButton}
+              loading={isLoading}
+            />
+          </View>
         </View>
       </View>
     </SafeAreaView>

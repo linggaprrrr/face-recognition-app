@@ -30,6 +30,23 @@ export default StyleSheet.create({
     fontSize: 12,
     color: colors.textDim,
   },
+  discountRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  discountLabel: {
+    fontSize: 12,
+    color: colors.textDim,
+  },
+  discountAmount: {
+    fontSize: 12,
+    color: colors.textDim,
+  },
+  discountAmountActive: {
+    color: colors.success,
+    fontWeight: '600',
+  },
   priceText: {
     fontSize: 16,
     fontWeight: '800',

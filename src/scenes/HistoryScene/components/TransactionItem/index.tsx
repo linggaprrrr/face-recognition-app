@@ -41,6 +41,14 @@ const TransactionItem: React.FC<TransactionItemProps> = ({item, onPress}) => {
       <View style={styles.infoContainer}>
         <Text style={styles.transactionIdText}>{item.trx_code}</Text>
         <Text style={styles.dateText}>{formattedDate}</Text>
+        <View style={styles.discountRow}>
+          <Text style={styles.discountLabel}>Potongan</Text>
+          <Text style={[styles.discountAmount, item.discount_amount > 0 && styles.discountAmountActive]}>
+            {item.discount_amount > 0
+              ? `- Rp ${item.discount_amount.toLocaleString('id-ID')}`
+              : 'Rp 0'}
+          </Text>
+        </View>
         <Text style={styles.priceText}>
           Rp {item.final_price.toLocaleString('id-ID')}
         </Text>

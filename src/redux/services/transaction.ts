@@ -6,6 +6,13 @@ export const transactions = createApi({
     baseQuery: baseService,
     tagTypes: ['Transactions', 'FaceSearch'],
     endpoints: (builder) => ({
+        applyPromoCode: builder.mutation<Transaction.PromoCodeResponse, { promo_code: string }>({
+            query: (body) => ({
+                url: '/promo-code/apply',
+                method: 'POST',
+                body,
+            }),
+        }),
         createTransaction: builder.mutation<Transaction.TransactionItem, Transaction.TransactionPayload>({
             query: (body) => ({
                 url: '/transactions/',
@@ -46,6 +53,7 @@ export const transactions = createApi({
 });
 
 export const {
+    useApplyPromoCodeMutation,
     useCreateTransactionMutation,
     useCreateTransactionPayMutation,
     useCancelTransactionMutation,

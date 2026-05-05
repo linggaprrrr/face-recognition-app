@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: 20,
     paddingTop: 8,
-    paddingBottom: 120,
+    paddingBottom: 200,
   },
   emptyList: {
     alignItems: 'center',
@@ -134,11 +134,9 @@ const styles = StyleSheet.create({
   },
   // ─── Bottom bar ────────────────────────────────────────────
   bottomBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: 'column',
     paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingTop: 14,
     paddingBottom: 28,
     position: 'absolute',
     bottom: 0,
@@ -147,6 +145,63 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderTopWidth: 1,
     borderTopColor: colors.border,
+    gap: 10,
+  },
+  promoRow: {
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
+  },
+  promoInput: {
+    flex: 1,
+    height: 42,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    fontSize: 14,
+    color: colors.text,
+    backgroundColor: colors.bg,
+  },
+  promoButton: {
+    height: 42,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    backgroundColor: colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  promoButtonDisabled: {
+    opacity: 0.6,
+  },
+  promoButtonText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: colors.white,
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  summaryLabel: {
+    fontSize: 13,
+    color: colors.textMid,
+    fontWeight: '500',
+  },
+  summaryValue: {
+    fontSize: 13,
+    color: colors.textMid,
+    fontWeight: '500',
+  },
+  discountValue: {
+    color: colors.success,
+    fontWeight: '700',
+  },
+  totalRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   totalInfo: {
     flexDirection: 'column',

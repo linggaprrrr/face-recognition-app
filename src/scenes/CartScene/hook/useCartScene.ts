@@ -6,7 +6,7 @@ import {
     loadCartFromStorage,
     removeFromCart,
 } from "@redux/slice/cart-slice";
-import { useCreateTransactionMutation, useCreateTransactionPayMutation } from '@redux/services/transaction';
+import { useApplyPromoCodeMutation, useCreateTransactionMutation, useCreateTransactionPayMutation } from '@redux/services/transaction';
 import Toast from 'react-native-toast-message';
 import { Alert } from 'react-native';
 import { Navigation } from '@navigations';
@@ -17,12 +17,15 @@ function useCartScene() {
     const loading = useSelector((state: RootState) => state.cart.loading);
     const [createTransaction, { isLoading: isCreating }] = useCreateTransactionMutation();
     const [createTransactionPay, { isLoading: isCreatingPay }] = useCreateTransactionPayMutation();
+    const [applyPromoCodeMutation, { isLoading: isApplyingPromo }] = useApplyPromoCodeMutation();
     const user = useSelector((state: RootState) => state.user);
     const home = useSelector((state: RootState) => state.home);
-    const [isLoadingCheckout, setIsLoadingCheckout] = useState(false)
+    const [isLoadingCheckout, setIsLoadingCheckout] = useState(false);
 
     const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
     const [isRefreshing, setIsRefreshing] = useState(false);
+    const [promoCode, setPromoCode] = useState('');
+    const [appliedPromo, setAppliedPromo] = useState<Transaction.PromoCodeResponse['data'] | null>(null);
 
     function toggleSelect(photo_id: string) {
         setSelectedIds((prev) => {
@@ -87,9 +90,30 @@ function useCartScene() {
     //     return true;
     // }
 
+    async function applyPromoCode() {
+        const code = promoCode.trim();
+        if (!code) return;
+
+        try {
+            const result = await applyPromoCodeMutation({ promo_code: code }).unwrap();
+            if (result.success && result.data) {
+                setAppliedPromo(result.data);
+                Toast.show({ type: 'success', text1: result.message });
+            } else {
+                setAppliedPromo(null);
+                Toast.show({ type: 'error', text1: result.message });
+            }
+        } catch {
+            setAppliedPromo(null);
+            Toast.show({ type: 'error', text1: 'Gagal menerapkan kode promo' });
+        }
+    }
+
     async function handleDownload() {
         const selectedItems = items.filter((t) => selectedIds.has(t.photo_id));
-        const totalPrice = selectedItems.reduce((sum, item) => sum + item.photo_price, 0);
+        const subtotal = selectedItems.reduce((sum, item) => sum + item.photo_price, 0);
+        const discountAmount = appliedPromo?.discount_amount ?? 0;
+        const totalPrice = Math.max(0, subtotal - discountAmount);
 
 
         // const hasPermission = await requestStoragePermission();
@@ -113,8 +137,8 @@ function useCartScene() {
             })),
             paid: false,
             discount_id: null,
-            discount_amount: 0,
-            promo_code_used: "",
+            discount_amount: discountAmount,
+            promo_code_used: appliedPromo?.promo_code ?? "",
             final_price: totalPrice,
             status: "pending",
             created_at: now,
@@ -193,15 +217,20 @@ function useCartScene() {
             user,
             transactions: items,
             isLoading: loading || isCreating || isLoadingCheckout,
+            isApplyingPromo,
             selectedIds,
             isRefreshing,
+            promoCode,
+            appliedPromo,
         },
         method: {
             toggleSelect,
             toggleSelectAll,
             deleteSelected,
             onRefreshList,
-            handleDownload
+            handleDownload,
+            setPromoCode,
+            applyPromoCode,
         },
     };
 }

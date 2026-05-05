@@ -1,5 +1,17 @@
 declare namespace Transaction {
 
+    interface PromoCodeResponse {
+        success: boolean;
+        message: string;
+        data?: {
+            promo_code: string;
+            discount_type: string;
+            discount_value: number;
+            discount_amount: number;
+        };
+        error_code?: string;
+    }
+
     interface GetPayload {
         page?: number;
         limit?: number;
@@ -28,6 +40,10 @@ declare namespace Transaction {
         photos: {
             photo_id: string;
         }[];
+        promo_code_used?: string;
+        discount_amount?: number;
+        final_price?: number;
+        unit_id?: string;
     }
 
     interface User {
