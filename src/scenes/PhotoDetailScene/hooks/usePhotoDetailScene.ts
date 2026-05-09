@@ -40,7 +40,10 @@ export const usePhotoDetailScene = (item: Face.FaceSearchResult) => {
     const handlePhotoChoice = async (choice: boolean) => {
         try {
             await choosenPhoto({ photo_id: item.photo_id, choice }).unwrap();
-            Navigation.pop();
+            Toast.show({
+                type: 'success',
+                text1: choice ? 'Foto dikonfirmasi' : 'Foto ditolak',
+            });
         } catch {
             Toast.show({
                 type: "error",

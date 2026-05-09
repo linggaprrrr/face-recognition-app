@@ -141,7 +141,16 @@ const CartScene: React.FC = () => {
 
         {/* Summary */}
         <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>Potongan</Text>
+          <View>
+            <Text style={styles.summaryLabel}>Potongan</Text>
+            {appliedPromo && (
+              <Text style={styles.discountDescription}>
+                {appliedPromo.discount_type === 'percentage'
+                  ? `Potongan ${appliedPromo.discount_value}%`
+                  : `Potongan Rp. ${appliedPromo.discount_value.toLocaleString('id-ID')}`}
+              </Text>
+            )}
+          </View>
           <Text style={[styles.summaryValue, discountAmount > 0 && styles.discountValue]}>
             {discountAmount > 0 ? `- Rp ${discountAmount.toLocaleString('id-ID')}` : 'Rp 0'}
           </Text>

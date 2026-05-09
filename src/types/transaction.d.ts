@@ -1,5 +1,11 @@
 declare namespace Transaction {
 
+    interface ApplyDiscountPayload {
+        promo_code: string;
+        order_amount: number;
+        unit_id: string;
+    }
+
     interface PromoCodeResponse {
         success: boolean;
         message: string;

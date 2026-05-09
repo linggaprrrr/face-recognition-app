@@ -182,12 +182,18 @@ const styles = StyleSheet.create({
   summaryRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   summaryLabel: {
     fontSize: 13,
     color: colors.textMid,
     fontWeight: '500',
+  },
+  discountDescription: {
+    fontSize: 11,
+    color: colors.success,
+    fontWeight: '600',
+    marginTop: 2,
   },
   summaryValue: {
     fontSize: 13,

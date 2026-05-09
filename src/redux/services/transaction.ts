@@ -6,9 +6,9 @@ export const transactions = createApi({
     baseQuery: baseService,
     tagTypes: ['Transactions', 'FaceSearch'],
     endpoints: (builder) => ({
-        applyPromoCode: builder.mutation<Transaction.PromoCodeResponse, { promo_code: string }>({
+        applyPromoCode: builder.mutation<Transaction.PromoCodeResponse, Transaction.ApplyDiscountPayload>({
             query: (body) => ({
-                url: '/promo-code/apply',
+                url: '/discounts/apply',
                 method: 'POST',
                 body,
             }),

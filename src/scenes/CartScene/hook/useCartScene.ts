@@ -94,8 +94,16 @@ function useCartScene() {
         const code = promoCode.trim();
         if (!code) return;
 
+        const selectedItems = items.filter(i => selectedIds.has(i.photo_id));
+        const orderAmount = (selectedItems.length > 0 ? selectedItems : items)
+            .reduce((sum, i) => sum + (i.photo_price ?? 0), 0);
+
         try {
-            const result = await applyPromoCodeMutation({ promo_code: code }).unwrap();
+            const result = await applyPromoCodeMutation({
+                promo_code: code,
+                order_amount: orderAmount,
+                unit_id: home.unit_id,
+            }).unwrap();
             if (result.success && result.data) {
                 setAppliedPromo(result.data);
                 Toast.show({ type: 'success', text1: result.message });
