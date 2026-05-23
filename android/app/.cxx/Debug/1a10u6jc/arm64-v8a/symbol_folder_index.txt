@@ -1,1 +1,0 @@
-/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/Debug/1a10u6jc/obj/arm64-v8a

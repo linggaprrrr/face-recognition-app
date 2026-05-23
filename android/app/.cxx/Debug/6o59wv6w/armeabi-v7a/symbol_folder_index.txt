@@ -1,1 +1,0 @@
-/Applications/MAMP/htdocs/react/ownize/android/app/build/intermediates/cxx/Debug/6o59wv6w/obj/armeabi-v7a
