@@ -58,8 +58,10 @@ logs
 # =========================
 
 android/.gradle/
+android/app/.cxx/
 android/app/build/
 android/build/
+.gradle/
 android/local.properties
 *.keystore
 *.jks

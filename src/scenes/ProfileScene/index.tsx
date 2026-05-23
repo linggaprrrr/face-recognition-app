@@ -86,7 +86,7 @@ const ProfileScene = () => {
   }
 
   async function handleContactWhatsapp() {
-    const url = 'whatsapp://send?phone=6285692579611';
+    const url = 'whatsapp://send?phone=+6285157318181';
     try {
       await Linking.openURL(url);
     } catch {

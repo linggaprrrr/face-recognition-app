@@ -7,6 +7,8 @@ import dayjs from "dayjs";
 import "dayjs/locale/id";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import AppInitializer from "@libs/app-initializer";
+import ForceUpdateModal from "@components/ForceUpdateModal";
+import { useForceUpdate } from "./src/hooks/useForceUpdate";
 // import { CaptureProtection } from "react-native-capture-protection";
 
 dayjs.locale("id");
@@ -32,11 +34,14 @@ function App(): React.JSX.Element {
   //   CaptureProtection.prevent();
   // }, []);
 
+  const { isUpdateRequired } = useForceUpdate();
+
   return (
     <Provider store={store}>
       <AppInitializer />
       <NavigationContainer />
       <Toast />
+      <ForceUpdateModal visible={isUpdateRequired} />
     </Provider>
   );
 }
